@@ -1,6 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using Flights.WebApi.Models;
+using Flights.Business;
+using Flights.Business.Dto;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Flights.WebApi.Controllers
@@ -9,31 +9,39 @@ namespace Flights.WebApi.Controllers
     [ApiController]
     public class ReservationController : ControllerBase
     {
-        private static List<Reservation> reservations = new List<Reservation>
+        public readonly IReservationBusiness reservationBusiness;
+
+        public ReservationController(IReservationBusiness reservationBusiness)
         {
-            new Reservation
-            {
-                UserName = "Amir",
-                FlightId = Guid.NewGuid()
-            },
-            new Reservation
-            {
-                UserName = "Betty",
-                FlightId = Guid.NewGuid()
-            }
-        };
+            this.reservationBusiness = reservationBusiness;
+        }
 
         [HttpGet]
         public IActionResult Get()
         {
+            var reservations = this.reservationBusiness.GetAll();
             return Ok(reservations);
         }
 
         [HttpPost]
-        public IActionResult Add([FromBody] Reservation reservation)
+        public IActionResult Add([FromBody] ReservationDto reservation)
         {
-            reservations.Add(reservation);
+            this.reservationBusiness.Add(reservation);
             return Ok(reservation);
+        }
+
+        [HttpPut]
+        public IActionResult Put([FromBody] ReservationDto reservation)
+        {
+            this.reservationBusiness.Update(reservation);
+            return Ok(reservation);
+        }
+
+        [HttpDelete]
+        public IActionResult Delete(Guid reservationId)
+        {
+            this.reservationBusiness.Delete(reservationId);
+            return Ok();
         }
     }
 }
