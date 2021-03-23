@@ -32,16 +32,20 @@ namespace Flights.WebApi.Controllers
 
 
         [HttpPut]
-        public IActionResult Put([FromBody] FlightDto flight)
+
+        [Route("{id}")]
+        public IActionResult Put(Guid id, [FromBody] FlightDto flight)
         {
-            this.flightBusiness.Update(flight);
+            this.flightBusiness.Update(id, flight);
             return Ok(flight);
         }
 
         [HttpDelete]
-        public IActionResult Delete(Guid flightId)
+
+        [Route("{id}")]
+        public IActionResult Delete(Guid id)
         {
-            this.flightBusiness.Delete(flightId);
+            this.flightBusiness.Delete(id);
             return Ok();
         }
     }

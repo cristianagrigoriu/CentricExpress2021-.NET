@@ -33,10 +33,14 @@ namespace Flights.Business
             Database.Flights.Add(newFlight);
         }
 
-        public void Update(FlightDto flight)
+        public void Update(Guid flightId, FlightDto flightDto)
         {
-            Delete(flight.Id);
-            Add(flight);
+            var flight = Database.Flights.Find(fl => fl.Id == flightId);
+            flight.Update(flightDto.PlaneModel,
+                flightDto.DepartureTime,
+                flightDto.ArrivalTime,
+                flightDto.DepartureCity,
+                flightDto.DestinationCity);
         }
 
         public void Delete(Guid flightId)

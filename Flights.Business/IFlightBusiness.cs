@@ -10,7 +10,7 @@ namespace Flights.Business
 
         void Add(FlightDto flight);
 
-        void Update(FlightDto flight);
+        void Update(Guid id, FlightDto flight);
 
         void Delete(Guid flightId);
     }

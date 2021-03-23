@@ -32,5 +32,15 @@ namespace Flights.Data.Entities
         public string DestinationCity { get; private set; }
 
         public List<Reservation> Reservations { get; private set; }
+
+        public void Update(string planeModel, DateTime departureTime, DateTime arrivalTime, string departureCity,
+            string destinationCity)
+        {
+            PlaneModel = planeModel;
+            DepartureTime = departureTime;
+            ArrivalTime = arrivalTime;
+            DepartureCity = departureCity;
+            DestinationCity = destinationCity;
+        }
     }
 }

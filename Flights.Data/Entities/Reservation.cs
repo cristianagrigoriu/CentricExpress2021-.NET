@@ -20,5 +20,11 @@ namespace Flights.Data.Entities
         public string User { get; private set; }
 
         public Guid FlightId { get; private set; }
+
+        public void Update(string user, Guid flightId)
+        {
+            User = user;
+            FlightId = flightId;
+        }
     }
 }

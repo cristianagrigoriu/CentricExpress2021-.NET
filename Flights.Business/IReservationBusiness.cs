@@ -10,8 +10,10 @@ namespace Flights.Business
 
         void Add(ReservationDto reservation);
 
-        void Update(ReservationDto reservation);
+        void Update(Guid reservationId, ReservationDto reservation);
 
         void Delete(Guid reservationId);
+
+        ReservationDto GetById(Guid id);
     }
 }

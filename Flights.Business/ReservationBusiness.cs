@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
 using Flights.Business.Dto;
 using Flights.Data;
 using Flights.Data.Entities;
@@ -22,15 +21,21 @@ namespace Flights.Business
             Database.Reservations.Add(newReservation);
         }
 
-        public void Update(ReservationDto reservation)
+        public void Update(Guid reservationId, ReservationDto reservationDto)
         {
-            Delete(reservation.Id);
-            Add(reservation);
+            var reservation = Database.Reservations.Find(res => res.Id == reservationId);
+            reservation.Update(reservationDto.User, reservationDto.FlightId);
         }
 
         public void Delete(Guid reservationId)
         {
             Database.Reservations = Database.Reservations.Where(r => r.Id != reservationId).ToList();
+        }
+
+        public ReservationDto GetById(Guid id)
+        {
+            return Database.Reservations.Where(x => x.Id == id)
+                .Select(r => new ReservationDto(r.Id, r.User, r.FlightId)).SingleOrDefault();
         }
     }
 }
