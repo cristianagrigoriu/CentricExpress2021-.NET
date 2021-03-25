@@ -9,43 +9,73 @@ namespace Flights.Business
 {
     public class FlightBusiness: IFlightBusiness
     {
-        public List<FlightDto> GetAll()
+        private readonly IFlightRepository _flightRepository;
+
+        public FlightBusiness(IFlightRepository flightRepository)
         {
-            return Database.Flights.Select(f => new FlightDto(
-                f.Id,
-                f.PlaneModel,
-                f.DepartureTime,
-                f.ArrivalTime,
-                f.DepartureCity,
-                f.DestinationCity)).ToList();
+            _flightRepository = flightRepository;
         }
 
-        public void Add(FlightDto flight)
+        public List<FlightDto> GetAll()
         {
-            var newFlight = new Flight(
-                flight.Id,
-                flight.PlaneModel,
-                flight.DepartureTime,
-                flight.ArrivalTime,
-                flight.DepartureCity,
-                flight.DestinationCity);
+            return _flightRepository.Get()
+                .Select(MapToFlightModel)
+                .ToList();
+        }
 
-            Database.Flights.Add(newFlight);
+        public void Add(FlightDto flightDto)
+        {
+            var flight = new Flight(flightDto.Id, flightDto.PlaneModel, flightDto.DepartureTime, flightDto.ArrivalTime,
+                flightDto.DepartureCity, flightDto.DestinationCity);
+            _flightRepository.Add(flight);
         }
 
         public void Update(Guid flightId, FlightDto flightDto)
         {
-            var flight = Database.Flights.Find(fl => fl.Id == flightId);
-            flight.Update(flightDto.PlaneModel,
-                flightDto.DepartureTime,
-                flightDto.ArrivalTime,
-                flightDto.DepartureCity,
-                flightDto.DestinationCity);
+            var flight = _flightRepository.GetById(flightId);
+            flight.Update(flightDto.PlaneModel, flightDto.DepartureTime, flightDto.ArrivalTime,
+                flightDto.DepartureCity, flightDto.DestinationCity);
+            _flightRepository.Edit(flight);
         }
 
         public void Delete(Guid flightId)
         {
-            Database.Flights = Database.Flights.Where(r => r.Id != flightId).ToList();
+            _flightRepository.Delete(flightId);
+        }
+
+        public bool Exists(Guid id)
+        {
+            return _flightRepository.Exists(id);
+        }
+
+        private FlightDto MapToFlightModel(Flight flight)
+        {
+            return new FlightDto
+            {
+                Id = flight.Id,
+                ArrivalTime = flight.ArrivalTime,
+                DepartureCity = flight.DepartureCity,
+                DepartureTime = flight.DepartureTime,
+                DestinationCity = flight.DestinationCity,
+                PlaneModel = flight.PlaneModel,
+                Reservations = MapReservations(flight),
+            };
+        }
+
+        private List<ReservationDto> MapReservations(Flight flight)
+        {
+            if (flight.Reservations != null && flight.Reservations.Any())
+            {
+                return flight.Reservations.Select(res =>
+                    new ReservationDto()
+                    {
+                        Id = res.Id,
+                        FlightId = res.FlightId,
+                        User = res.User
+                    }).ToList();
+            }
+
+            return new List<ReservationDto>();
         }
     }
 }

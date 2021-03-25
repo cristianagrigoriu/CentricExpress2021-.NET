@@ -4,6 +4,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Flights.Business;
+using Flights.Data;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 
 namespace Flights
@@ -24,10 +26,20 @@ namespace Flights
 
             services.AddSingleton<IReservationBusiness, ReservationBusiness>();
             services.AddSingleton<IFlightBusiness, FlightBusiness>();
+            services.AddSingleton<IFlightRepository, FlightRepository>();
+            services.AddSingleton<IReservationRepository, ReservationRepository>();
 
             services.AddSwaggerGen(s =>
             {
                 s.SwaggerDoc("v1", new OpenApiInfo { Title = "Flights API", Version = "v1" });
+            });
+
+            services.AddDbContext<DatabaseContext>().AddSingleton(_ =>
+            {
+                var opt = new DbContextOptionsBuilder<DatabaseContext>();
+                opt.UseSqlServer(
+                    "Server=.\\SQLEXPRESS;Initial Catalog=Flights;Integrated Security=true;MultipleActiveResultSets=True");
+                return new DatabaseContext(opt.Options);
             });
         }
 
