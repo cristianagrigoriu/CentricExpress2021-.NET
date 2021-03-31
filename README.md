@@ -20,7 +20,7 @@ Configurare Model folosind DataAnnotations In Flight.cs si Reservation.cs adăug
 
 Adaugam prima migrare la baza de date:
 a. Deschidem Package Manager Console 
-b. Rulam add-migration CreateMoviesTable, sau orice alt nume pentru migrare, dar trebuie sa fie sugestiv (ne asiguram ca proiectul Movies.Data este setat ca Start up project) 
+b. Rulam add-migration CreateDatabase, sau orice alt nume pentru migrare, dar trebuie sa fie sugestiv (ne asiguram ca proiectul Movies.Data este setat ca Start up project) 
 c. Rulam update-database.
 Apoi verificam in Sql MAnager ca baza de date s-a creat cu success.
 Accesand swagger putem verifica conexiunea la baza de date: rulam applicatia si accesam ' /swagger '.
