@@ -1,5 +1,4 @@
 # CentricExpress2021-.NET
-## Step 2 - Architecture
 
 In urmatorii pasi vom presenta o arhitectura, pattern-uri si cateva practici aplicate in solutia noastra.
 
