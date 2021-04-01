@@ -26,7 +26,7 @@ Prin urmare trebuie sa adaugam alte 2 proeicte de tip **Class Library (.NET Core
     - **Reservation**
  Tot in proiectul Flights.Data vom crea clasa **Database** pentru a servi ca o baza de date statica.
  
- 
+ ![DataL](https://user-images.githubusercontent.com/62900218/113345942-d9b7ff80-933b-11eb-8b07-249c31f5ca05.JPG)
  
  ### Pasul 2 - Business Layer
   Adaugam modelele DTO in proiectul Flights.Business. Aceste modele vor fi folosite pentru a returna un raspuns utilizatorului.
@@ -40,6 +40,8 @@ Prin urmare trebuie sa adaugam alte 2 proeicte de tip **Class Library (.NET Core
   Adaugam 2 clase unde vom implementa metodele definite in interfete.
     - **ReservationBusiness** implementeaza IReservationBusiness
     - **FlightBusiness** implementeaza IFlightBusiness
+
+![BusinessL](https://user-images.githubusercontent.com/62900218/113345982-e6d4ee80-933b-11eb-97cd-3c00da9b9be5.JPG)
 
   
  ### Pasul 3 - Presetantion Layer
@@ -56,6 +58,10 @@ Prin urmare trebuie sa adaugam alte 2 proeicte de tip **Class Library (.NET Core
     - **HttpGet** 
     - **HttpPut**
     - **HttpDelete**
+
+![PersistentL](https://user-images.githubusercontent.com/62900218/113346046-ff450900-933b-11eb-865b-ab056c8bf535.JPG)
+
+
   
 
 
