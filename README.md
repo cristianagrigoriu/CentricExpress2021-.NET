@@ -13,7 +13,7 @@ Prin urmare trebuie sa adaugam alte 2 proeicte de tip **Class Library (.NET Core
 - **Flights.Data** (Persistence Layer)
 
 ### Pasul 2 - Dependinte
-  Vom adauga dependintele urmatoare:
+Vom adauga dependintele urmatoare:
 - Fligts.WebApi - **referinta la** -> Flights.Business
 - Fligts.Business - **referinta la** -> Flights.Data
   
@@ -21,23 +21,23 @@ Prin urmare trebuie sa adaugam alte 2 proeicte de tip **Class Library (.NET Core
 ## Partea 2 - CRUD
 
 ### Pasul 1 - Persistence Layer
-  Vom incepe prin a crea entitatile necesare in proiectul Flights.Data:
+Vom incepe prin a crea entitatile necesare in proiectul Flights.Data:
 - **Flight**
 - **Reservation**
- Tot in proiectul Flights.Data vom crea clasa **Database** pentru a servi ca o baza de date statica.
+Tot in proiectul Flights.Data vom crea clasa **Database** pentru a servi ca o baza de date statica.
  
  ![DataL](https://user-images.githubusercontent.com/62900218/113345942-d9b7ff80-933b-11eb-8b07-249c31f5ca05.JPG)
  
  ### Pasul 2 - Business Layer
-  Adaugam modelele DTO in proiectul Flights.Business. Aceste modele vor fi folosite pentru a returna un raspuns utilizatorului.
+Adaugam modelele DTO in proiectul Flights.Business. Aceste modele vor fi folosite pentru a returna un raspuns utilizatorului.
 - **FlightDto**
 - **ReservationDto**
   
-  Acum avem nevoie de 2 interfete in care o sa adaugam ce metode avem nevoie sa implementam(CRUD).
+Acum avem nevoie de 2 interfete in care o sa adaugam ce metode avem nevoie sa implementam(CRUD).
 -**IReservetionBusiness**
 -**IFlightBusiness**
   
-  Adaugam 2 clase unde vom implementa metodele definite in interfete.
+Adaugam 2 clase unde vom implementa metodele definite in interfete.
 - **ReservationBusiness** implementeaza IReservationBusiness
 - **FlightBusiness** implementeaza IFlightBusiness
 
@@ -45,15 +45,15 @@ Prin urmare trebuie sa adaugam alte 2 proeicte de tip **Class Library (.NET Core
 
   
  ### Pasul 3 - Presetantion Layer
-  Deoarece dorim sa folosim DI (**Dependecy Injection**), primul lucru pe care il vom face in acest proiect este sa comfiguram asta. Mergem in fisierul Startup.cs, iar in metoda ConfigureServices vom adauga urmatoarele linii:
+Deoarece dorim sa folosim DI (**Dependecy Injection**), primul lucru pe care il vom face in acest proiect este sa comfiguram asta. Mergem in fisierul Startup.cs, iar in metoda ConfigureServices vom adauga urmatoarele linii:
 - **services.AddSingleton<IReservationBusiness, ReservationBusiness>();**
 - **services.AddSingleton<IFlightBusiness, FlightBusiness>();**
             
-  Vom adauga in proiect 2 clase pe care le vom folosi ca si Controlere.
+Vom adauga in proiect 2 clase pe care le vom folosi ca si Controlere.
 - **ReservationController**
 - **FlightController**
 
-  In fiecare din clase vom injecta serviciul dorit (IReservationBusiness sau IFlightBusiness) folosind constructorul. Urmand sa adaugam metodele HTTP necesare pentru CRUD:
+In fiecare din clase vom injecta serviciul dorit (IReservationBusiness sau IFlightBusiness) folosind constructorul. Urmand sa adaugam metodele HTTP necesare pentru CRUD:
 - **HttpPost** 
 - **HttpGet** 
 - **HttpPut**
