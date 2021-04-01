@@ -1,14 +1,14 @@
 # CentricExpress2021-.NET
 
-In urmatorii pasi vom presenta o arhitectura, pattern-uri si cateva practici aplicate in solutia noastra.
+In urmatorii pasi vom prezenta o arhitectura, pattern-uri si cateva practici aplicate in solutia noastra.
 
 ## Partea 1 - Arhitectura (Layered Architecture)
-In primul rand vom incepe cu baza codului (**step1 branch**) pe care vom incepe sa construim arhitectura aplicatiei. Vom folosi **Layered Architecture** pentru solutia noastra.
+In primul rand vom incepe cu branch-ul precedent (**step1**) pe care vom incepe sa construim arhitectura aplicatiei. Vom folosi **Layered Architecture** pentru solutia noastra.
 
 ### Pasul 1 - Proiectele
 In acest pas definim structura solutiei. Trebuie sa adaugam un proiect pentru fiecare layer.
 Din **step1 branch** observam ca avem deja definit proiectul **Flights.WebApi**, acesta face parte din **Presetantion Layer**.
-Prin urmare trebuie sa adaugam alte 2 proeicte de tip **Class Library (.NET Core)**:  
+Prin urmare trebuie sa adaugam alte 2 proiecte de tip **Class Library (.NET Core)**:  
 - **Flights.Business** (Business Layer)
 - **Flights.Data** (Persistence Layer)
 
@@ -21,10 +21,10 @@ Vom adauga dependintele urmatoare:
 ## Partea 2 - CRUD
 
 ### Pasul 1 - Persistence Layer
-Vom incepe prin a crea entitatile necesare in proiectul Flights.Data:
+Vom incepe prin a adauga entitatile necesare in proiectul Flights.Data:
 - **Flight**
 - **Reservation**
-Tot in proiectul Flights.Data vom crea clasa **Database** pentru a servi ca o baza de date statica.
+Tot in proiectul Flights.Data vom adauga clasa **Database** pentru a servi ca o baza de date statica.
  
  ![DataL](https://user-images.githubusercontent.com/62900218/113345942-d9b7ff80-933b-11eb-8b07-249c31f5ca05.JPG)
  
@@ -37,7 +37,7 @@ Acum avem nevoie de 2 interfete in care o sa adaugam ce metode avem nevoie sa im
 - **IReservetionBusiness**
 - **IFlightBusiness**
   
-Adaugam 2 clase unde vom implementa metodele definite in interfete.
+Adaugam 2 clase in care vom implementa metodele definite in interfete.
 - **ReservationBusiness** implementeaza IReservationBusiness
 - **FlightBusiness** implementeaza IFlightBusiness
 
@@ -45,7 +45,7 @@ Adaugam 2 clase unde vom implementa metodele definite in interfete.
 
   
  ### Pasul 3 - Presetantion Layer
-Deoarece dorim sa folosim DI (**Dependecy Injection**), primul lucru pe care il vom face in acest proiect este sa comfiguram asta. Mergem in fisierul Startup.cs, iar in metoda ConfigureServices vom adauga urmatoarele linii:
+Deoarece dorim sa folosim D.I. (**Dependecy Injection**), primul lucru pe care il vom face in acest proiect este sa configuram asta. Mergem in fisierul **Startup.cs**, iar in metoda **ConfigureServices** vom adauga urmatoarele linii:
 - **services.AddSingleton<IReservationBusiness, ReservationBusiness>();**
 - **services.AddSingleton<IFlightBusiness, FlightBusiness>();**
             
