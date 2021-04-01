@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using Flights.Business;
 using Flights.Business.Dto;
 using Microsoft.AspNetCore.Mvc;
@@ -47,6 +49,17 @@ namespace Flights.WebApi.Controllers
         {
             this.flightBusiness.Delete(id);
             return Ok();
+        }
+
+        public IEnumerable<FlightDto> GetShortestFlight(string departureCity, string destinationCity)
+        {
+            var shortestFlightTime = this.flightBusiness.GetAll()
+                .Where(x => x.DepartureCity == departureCity
+                            && x.DestinationCity == destinationCity)
+                .Max(x => x.GetFlightDuration());
+            return this.flightBusiness
+                .GetAll()
+                .Where(x => x.ArrivalTime - x.DepartureTime == shortestFlightTime);
         }
     }
 }

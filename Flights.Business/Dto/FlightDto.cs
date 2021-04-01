@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 
 namespace Flights.Business.Dto
 {
@@ -32,5 +33,22 @@ namespace Flights.Business.Dto
         public string DestinationCity { get; set; }
 
         public List<ReservationDto> Reservations { get; set; }
+
+        public TimeSpan GetFlightDuration()
+        {
+            var flightDuration = this.ArrivalTime - this.DepartureTime;
+
+            if (flightDuration.TotalHours < 0)
+            {
+                throw new InvalidDataException("Arrival time cannot be before Departure time!");
+            }
+
+            if (flightDuration.TotalHours == 0)
+            {
+                throw new InvalidDataException("Departure time cannot be equal to Arrival time!");
+            }
+
+            return flightDuration;
+        }
     }
 }
