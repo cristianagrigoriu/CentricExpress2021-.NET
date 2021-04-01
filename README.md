@@ -34,8 +34,8 @@ Adaugam modelele DTO in proiectul Flights.Business. Aceste modele vor fi folosit
 - **ReservationDto**
   
 Acum avem nevoie de 2 interfete in care o sa adaugam ce metode avem nevoie sa implementam(CRUD).
--**IReservetionBusiness**
--**IFlightBusiness**
+- **IReservetionBusiness**
+- **IFlightBusiness**
   
 Adaugam 2 clase unde vom implementa metodele definite in interfete.
 - **ReservationBusiness** implementeaza IReservationBusiness
