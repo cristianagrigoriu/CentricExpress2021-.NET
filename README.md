@@ -19,6 +19,8 @@ In acest pas am facut urmatoarele:
 - adaugam o metoda **Get** pe care punem adnotarea `[HttpGet]` - pentru a returna zborurile
 - adaugam o metoda **Create** pe care punem adnotarea `[HttpPost]` - pentru a adauga un zbor nou
 
+Procedam la fel si pentru `ReservationController`.
+
 #### Swagger UI
 
 Pentru a vizualiza mai usor API-ul, folosim Swagger UI.
