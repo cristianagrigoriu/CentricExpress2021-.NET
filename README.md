@@ -24,6 +24,7 @@ Vom adauga dependintele urmatoare:
 Vom incepe prin a adauga entitatile necesare in proiectul Flights.Data:
 - **Flight**
 - **Reservation**
+
 Tot in proiectul Flights.Data vom adauga clasa **Database** pentru a servi ca o baza de date statica.
  
  ![DataL](https://user-images.githubusercontent.com/62900218/113345942-d9b7ff80-933b-11eb-8b07-249c31f5ca05.JPG)
